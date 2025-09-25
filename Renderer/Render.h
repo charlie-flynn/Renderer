@@ -8,19 +8,24 @@ namespace aie
 	struct Vertex
 	{
 		glm::vec4 Pos;
+		glm::vec2 UV;
 	};
 
 	struct Geometry
 	{
 		GLuint Vao = 0, Vbo = 0, Ibo = 0; // Buffer names
 		GLuint Size = 0;				  // Index Count
+
+		glm::vec2 UVs[];				  // UVs i dont know what that stands for tbh
 	};
 
 	Geometry MakeGeometry(
 		const Vertex* const Verts,
 		GLsizei VertCount,
 		const GLuint* const indices,
-		GLsizei IndexCount);
+		GLsizei IndexCount,
+		const glm::vec2* const uvs,
+		GLsizei UVCount);
 
 	void FreeGeometry(Geometry& Geo);
 

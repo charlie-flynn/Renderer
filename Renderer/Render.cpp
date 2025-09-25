@@ -10,7 +10,13 @@
 
 namespace aie
 {
-    Geometry aie::MakeGeometry(const Vertex* const Verts, GLsizei VertCount, const GLuint* const indices, GLsizei IndexCount)
+    Geometry aie::MakeGeometry(
+        const Vertex* const Verts, 
+        GLsizei VertCount, 
+        const GLuint* const indices, 
+        GLsizei IndexCount, 
+        const glm::vec2* const uvs, 
+        GLsizei UVCount)
     {
         // create an instance of geometry
         Geometry NewGeo = {};
@@ -26,7 +32,7 @@ namespace aie
         glBindBuffer(GL_ARRAY_BUFFER, NewGeo.Vbo);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NewGeo.Ibo);
 
-        // buffer daa to the bound buffers
+        // buffer data to the bound buffers
         glBufferData(GL_ARRAY_BUFFER, VertCount * sizeof(Vertex), Verts, GL_STATIC_DRAW);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, VertCount * sizeof(GLuint), indices, GL_STATIC_DRAW);
 
