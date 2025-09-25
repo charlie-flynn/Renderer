@@ -115,6 +115,11 @@ namespace aie
         glProgramUniformMatrix4fv(shad.Program, location, 1, GL_FALSE, glm::value_ptr(value));
     }
 
+    void SetUniform(const Shader& shad, GLuint location, const float value)
+    {
+        glProgramUniform1fv(shad.Program, location, 1, &value);
+    }
+
     void Draw(const Shader& shad, const Geometry& geo)
     {
         // bind the shader program & VAO
