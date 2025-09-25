@@ -4,5 +4,5 @@
 
 		void main() 
 		{ 
-			vertColor = vec4(1.0, 1.0, 0.7, 1.0); 
+			vertColor = vec4(1.0, 0.7, 0, 1.0); 
 		}

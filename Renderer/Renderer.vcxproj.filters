@@ -27,6 +27,9 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Context.h">
@@ -38,10 +41,14 @@
     <ClInclude Include="Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shaders\BasicVertexShader.txt" />
     <Text Include="Shaders\BasicFragmentShader.txt" />
     <Text Include="Shaders\VertexShader.txt" />
+    <Text Include="Shaders\CameraVertexShader.txt" />
   </ItemGroup>
 </Project>

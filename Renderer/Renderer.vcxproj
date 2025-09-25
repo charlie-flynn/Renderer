@@ -134,15 +134,18 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Context.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shaders\BasicFragmentShader.txt" />
     <Text Include="Shaders\BasicVertexShader.txt" />
+    <Text Include="Shaders\CameraVertexShader.txt" />
     <Text Include="Shaders\VertexShader.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
