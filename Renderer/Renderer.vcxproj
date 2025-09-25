@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="Context.h" />
     <ClInclude Include="Render.h" />
+    <ClInclude Include="ThirdParty\stb_image.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>

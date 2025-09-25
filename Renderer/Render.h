@@ -24,7 +24,15 @@ namespace aie
 
 	void FreeGeometry(Geometry& Geo);
 
+	struct Texture
+	{
+		GLuint Handle;
+		unsigned int Width, Height, Channels;
+	};
 
+	Texture MakeTexture(unsigned int width, unsigned int height, unsigned int channels, const unsigned char* pixels);
+	Texture LoadTexture(const char* imagePath);
+	void FreeTexture(Texture& tex);
 
 	struct Shader
 	{
