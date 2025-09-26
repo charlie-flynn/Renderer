@@ -9,6 +9,7 @@ namespace aie
 	{
 		glm::vec4 Pos;
 		glm::vec2 UVs;
+		glm::vec3 Normal;
 	};
 
 	struct Geometry

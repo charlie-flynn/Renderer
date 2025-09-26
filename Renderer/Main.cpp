@@ -19,9 +19,9 @@ int main()
 
 	Vertex triVerts[] =
 	{
-		{{ -0.5f, -0.5f, 0, 1}, {0, 0}},
-		{{0.5f, -0.5f, 0, 1}, {1, 0}},
-		{{0, 0.5f, 0, 1}, {.5f, 1}}
+		{{ -0.5f, -0.5f, 0, 1}, { 0, 0 }, {0, 0, -1}},
+		{{0.5f, -0.5f, 0, 1}, { 1, 0 }, {0, 0, -1}},
+		{{0, 0.5f, 0, 1}, { .5f, 1 }, {0, 0, -1}}
 	};
 
 	unsigned int triIndices[] = { 0, 1, 2 };
@@ -51,6 +51,8 @@ int main()
 	
 	glm::vec3 ambientLight = glm::vec3(0.6f, 0.6f, 0.6f);
 
+	glm::vec3 sunlightDirection(0, 0, 1);
+
 	while (!Window.ShouldClose())
 	{
 		Window.Tick();
@@ -60,11 +62,12 @@ int main()
 		aie::SetUniform(basicShad, 0, cam_proj);
 		aie::SetUniform(basicShad, 1, cameraView);
 		aie::SetUniform(basicShad, 2, triangleModel);
+
 		aie::SetUniform(basicShad, 3, awesome, 0);
 		aie::SetUniform(basicShad, 4, ambientLight);
+		aie::SetUniform(basicShad, 5, sunlightDirection);
 
 		aie::Draw(basicShad, basicTriangleGeo);
-
 	}
 
 	aie::FreeShader(basicShad);
