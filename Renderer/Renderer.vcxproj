@@ -138,16 +138,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Context.h" />
+    <ClInclude Include="Main.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="ThirdParty\stb_image.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Shaders\BasicFragmentShader.txt" />
-    <Text Include="Shaders\BasicVertexShader.txt" />
-    <Text Include="Shaders\CameraVertexShader.txt" />
-    <Text Include="Shaders\VertexShader.txt" />
+    <Text Include="res\Shaders\BasicFragmentShader.txt" />
+    <Text Include="res\Shaders\BasicVertexShader.txt" />
+    <Text Include="res\Shaders\CameraVertexShader.txt" />
+    <Text Include="res\Shaders\VertexShader.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\Shaders\TextureShader.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Textures\baby anteater.jpg" />
+    <Image Include="res\Textures\FunkierHeightmap.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

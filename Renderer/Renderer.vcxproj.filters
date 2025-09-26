@@ -47,11 +47,25 @@
     <ClInclude Include="ThirdParty\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Shaders\BasicVertexShader.txt" />
-    <Text Include="Shaders\BasicFragmentShader.txt" />
-    <Text Include="Shaders\VertexShader.txt" />
-    <Text Include="Shaders\CameraVertexShader.txt" />
+    <Text Include="res\Shaders\BasicVertexShader.txt" />
+    <Text Include="res\Shaders\BasicFragmentShader.txt" />
+    <Text Include="res\Shaders\VertexShader.txt" />
+    <Text Include="res\Shaders\CameraVertexShader.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\Shaders\TextureShader.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Textures\FunkierHeightmap.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Textures\baby anteater.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

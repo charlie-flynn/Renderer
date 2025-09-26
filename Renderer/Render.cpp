@@ -8,15 +8,15 @@
 #define STB_IMAGE_IMPLEMENTATION 1
 #include "ThirdParty/stb_image.h"
 
+#include "Util.h"
+
 namespace aie
 {
     Geometry aie::MakeGeometry(
         const Vertex* const Verts, 
         GLsizei VertCount, 
         const GLuint* const indices, 
-        GLsizei IndexCount, 
-        const glm::vec2* const uvs, 
-        GLsizei UVCount)
+        GLsizei IndexCount)
     {
         // create an instance of geometry
         Geometry NewGeo = {};
@@ -37,10 +37,12 @@ namespace aie
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, VertCount * sizeof(GLuint), indices, GL_STATIC_DRAW);
 
         // describe what was buffered
+        // position (location 0)
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-        
-        // get your ass back her when UVs are born
+        // UVs (location 1)
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, UVs));
 
         // unbind my buffers to prevent accidental modifciation
         glBindVertexArray(0);
@@ -64,6 +66,7 @@ namespace aie
     {
         Texture returnValue = { 0, width, height, channels };
 
+        
         GLenum oglFormat = GL_RED;
         switch (channels)
         {
@@ -133,29 +136,9 @@ namespace aie
         tex = {};
     }
 
-    const char* aie::ReadShader(const char* Path)
+    Shader ReadShaderFromFiles(const char* vertShaderPath, const char* fragShaderPath)
     {
-        std::string* Contents = new std::string();
-
-        if (auto File = std::fstream(Path, std::ios::in))
-        {
-            /* run until we hit end of file (EOF)*/
-            while (!File.eof())
-            {
-                std::string Line;
-                std::getline(File, Line);
-                Contents->append(Line);
-                Contents->append("\n");
-            }
-
-            File.close();
-        }
-        else
-        {
-            return nullptr;
-        }
-
-        return Contents->c_str();
+        return MakeShader(aie::DumpToString(vertShaderPath).c_str(), aie::DumpToString(fragShaderPath).c_str());
     }
 
     Shader MakeShader(const char* vertSource, const char* fragSource)
@@ -200,6 +183,18 @@ namespace aie
     void SetUniform(const Shader& shad, GLuint location, const float value)
     {
         glProgramUniform1fv(shad.Program, location, 1, &value);
+    }
+
+    void SetUniform(const Shader& shad, GLuint location, const Texture& texture, int textureSlot)
+    {
+        // Specify the texture slot we want to use
+        glActiveTexture(GL_TEXTURE0 + textureSlot);
+
+        // Bind the texture to that slot
+        glBindTexture(GL_TEXTURE_2D, texture.Handle);
+
+        // Specify that texture slot as the value for the uniform
+        glProgramUniform1i(shad.Program, location, textureSlot);
     }
 
     void Draw(const Shader& shad, const Geometry& geo)
