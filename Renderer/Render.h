@@ -55,6 +55,7 @@ namespace aie
 	void SetUniform(const Shader& shad, GLuint location, const glm::mat4 value);
 	void SetUniform(const Shader& shad, GLuint location, const float value);
 	void SetUniform(const Shader& shad, GLuint location, const Texture& texture, int textureSlot);
+	void SetUniform(const Shader& shad, GLuint location, const glm::vec3 value);
 
 	void Draw(const Shader& shad, const Geometry& geo);
 }

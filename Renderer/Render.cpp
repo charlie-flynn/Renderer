@@ -197,6 +197,11 @@ namespace aie
         glProgramUniform1i(shad.Program, location, textureSlot);
     }
 
+    void SetUniform(const Shader& shad, GLuint location, const glm::vec3 value)
+    {
+        glProgramUniform3fv(shad.Program, location, 1, glm::value_ptr(value));
+    }
+
     void Draw(const Shader& shad, const Geometry& geo)
     {
         // bind the shader program & VAO
