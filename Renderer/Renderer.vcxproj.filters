@@ -67,5 +67,6 @@
     <Image Include="res\Textures\baby anteater.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\Textures\soulspear_specular.tga" />
   </ItemGroup>
 </Project>

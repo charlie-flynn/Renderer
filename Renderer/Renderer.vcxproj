@@ -156,6 +156,7 @@
   <ItemGroup>
     <Image Include="res\Textures\baby anteater.jpg" />
     <Image Include="res\Textures\FunkierHeightmap.png" />
+    <Image Include="res\Textures\soulspear_specular.tga" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

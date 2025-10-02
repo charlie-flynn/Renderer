@@ -17,19 +17,10 @@ int main()
 	Context Window;
 	Window.Init(640, 480, "my awesome window <3");
 
-	Vertex triVerts[] =
-	{
-		{{ -0.5f, -0.5f, 0, 1}, { 0, 0 }, {0, 0, 1}},
-		{{0.5f, -0.5f, 0, 1}, { 1, 0 }, {0, 0, 1}},
-		{{0, 0.5f, 0, 1}, { .5f, 1 }, {0, 0, 1}}
-	};
-
-	unsigned int triIndices[] = { 0, 1, 2 };
-
-	Geometry basicTriangleGeo = aie::MakeGeometry(triVerts, 3, triIndices, 3);
+	Geometry soulSpearGeometry = aie::LoadGeometry("res/Models/soulspear.obj");
 
 	// model matrix: puts object in world space
-	glm::mat4 triangleModel = glm::identity<glm::mat4>();
+	glm::mat4 soulSpearModel = glm::identity<glm::mat4>();
 
 	// view matrix: puts things relative to where the camera is
 	glm::mat4 cameraView = glm::lookAt(
@@ -61,17 +52,17 @@ int main()
 		// setup the all important uniforms
 		aie::SetUniform(basicShad, 0, cam_proj);
 		aie::SetUniform(basicShad, 1, cameraView);
-		aie::SetUniform(basicShad, 2, triangleModel);
+		aie::SetUniform(basicShad, 2, soulSpearModel);
 
 		aie::SetUniform(basicShad, 3, awesome, 0);
 		aie::SetUniform(basicShad, 4, ambientLight);
 		aie::SetUniform(basicShad, 5, sunlightDirection);
 
-		aie::Draw(basicShad, basicTriangleGeo);
+		aie::Draw(basicShad, soulSpearGeometry);
 	}
 
 	aie::FreeShader(basicShad);
-	aie::FreeGeometry(basicTriangleGeo);
+	aie::FreeGeometry(soulSpearGeometry);
 
 	Window.Terminate();
 
