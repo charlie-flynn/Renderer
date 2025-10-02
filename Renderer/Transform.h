@@ -16,4 +16,7 @@ public:
 	Transform();
 
 	glm::mat4 LocalMatrix() const;
+
+	glm::quat SetEulerRotation(glm::vec3 eulerAngles);
+	glm::quat AddEulerRotation(glm::vec3 eulerAngles);
 };
