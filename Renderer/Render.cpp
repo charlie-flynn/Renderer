@@ -105,18 +105,18 @@ namespace aie
             {
                 tinyobj::index_t idx = shapes[0].mesh.indices[offSet + j];
 
-                tinyobj::real_t vx = vertexAttributes.vertices[3 * idx.vertex_index + 0];
-                tinyobj::real_t vy = vertexAttributes.vertices[3 * idx.vertex_index + 1];
-                tinyobj::real_t vz = vertexAttributes.vertices[3 * idx.vertex_index + 2];
+                tinyobj::real_t vertX = vertexAttributes.vertices[3 * idx.vertex_index + 0];
+                tinyobj::real_t vertY = vertexAttributes.vertices[3 * idx.vertex_index + 1];
+                tinyobj::real_t vertZ = vertexAttributes.vertices[3 * idx.vertex_index + 2];
 
-                tinyobj::real_t nx = vertexAttributes.normals[3 * idx.normal_index + 0];
-                tinyobj::real_t ny = vertexAttributes.normals[3 * idx.normal_index + 1];
-                tinyobj::real_t nz = vertexAttributes.normals[3 * idx.normal_index + 2];
+                tinyobj::real_t normalX = vertexAttributes.normals[3 * idx.normal_index + 0];
+                tinyobj::real_t normalY = vertexAttributes.normals[3 * idx.normal_index + 1];
+                tinyobj::real_t normalZ = vertexAttributes.normals[3 * idx.normal_index + 2];
 
                 tinyobj::real_t tx = vertexAttributes.texcoords[2 * idx.texcoord_index + 0];
                 tinyobj::real_t ty = vertexAttributes.texcoords[2 * idx.texcoord_index + 1];
 
-                vertices.push_back(Vertex{ {vx, vy, vz, 1}, {tx, ty}, {nx, ny, nz} });
+                vertices.push_back(Vertex{ {vertX, vertY, vertZ, 1}, {tx, ty}, {normalX, normalY, normalZ} });
                 indices.push_back(faceVertices * i + j);
             }
             offSet += faceVertices;
