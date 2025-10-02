@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <string>
+#include <vector>
 
 #include "glm/gtc/type_ptr.hpp"
 
@@ -9,13 +10,15 @@
 #include "ThirdParty/stb_image.h"
 
 #include "Util.h"
+#include "tiny_obj_loader.h"
+#include <iostream>
 
 namespace aie
 {
     Geometry aie::MakeGeometry(
-        const Vertex* const Verts, 
-        GLsizei VertCount, 
-        const GLuint* const indices, 
+        const Vertex* const Verts,
+        GLsizei VertCount,
+        const GLuint* const indices,
         GLsizei IndexCount)
     {
         // create an instance of geometry
@@ -61,6 +64,70 @@ namespace aie
         return NewGeo;
     }
 
+    Geometry aie::LoadGeometry(const char* filePath)
+    {
+        using namespace tinyobj;
+
+        // contains all data for all vertex attributes loaded from the file
+        attrib_t vertexAttributes;
+
+        // enumeration of all shapes in obj file
+        std::vector<tinyobj::shape_t> shapes;
+        std::vector<tinyobj::material_t> materials;
+        std::string error;
+        std::string warn;
+
+        bool success = LoadObj(&vertexAttributes, &shapes, &materials, &warn, &error, filePath);
+
+        if (!error.empty())
+        {
+            std::cerr << error << std::endl;
+        }
+        if (!success || shapes.size() < 1)
+        {
+            return {};
+        }
+
+        std::vector<Vertex> vertices;
+        std::vector<GLuint> indices;
+
+        // Get mesh data
+        size_t offSet = 0;
+        for (GLsizei i = 0; i < shapes[0].mesh.num_face_vertices.size(); ++i)
+        {
+            // number of vertices for current face
+            GLsizei faceVertices = shapes[0].mesh.num_face_vertices[i];
+
+            assert(faceVertices == 3 && "Faces must be provided in triangles");
+
+            // iterate over vertices used to form current face
+            for (unsigned char j = 0; j < faceVertices; ++j)
+            {
+                tinyobj::index_t idx = shapes[0].mesh.indices[offSet + j];
+
+                tinyobj::real_t vx = vertexAttributes.vertices[3 * idx.vertex_index + 0];
+                tinyobj::real_t vy = vertexAttributes.vertices[3 * idx.vertex_index + 1];
+                tinyobj::real_t vz = vertexAttributes.vertices[3 * idx.vertex_index + 2];
+
+                tinyobj::real_t nx = vertexAttributes.normals[3 * idx.normal_index + 0];
+                tinyobj::real_t ny = vertexAttributes.normals[3 * idx.normal_index + 1];
+                tinyobj::real_t nz = vertexAttributes.normals[3 * idx.normal_index + 2];
+
+                tinyobj::real_t tx = vertexAttributes.texcoords[2 * idx.texcoord_index + 0];
+                tinyobj::real_t ty = vertexAttributes.texcoords[2 * idx.texcoord_index + 1];
+
+                vertices.push_back(Vertex{ {vx, vy, vz, 1}, {tx, ty}, {nx, ny, nz} });
+                indices.push_back(faceVertices * i + j);
+            }
+            offSet += faceVertices;
+        }
+
+        assert(vertices.size() <= std::numeric_limits<GLsizei>::max());
+        assert(indices.size() <= std::numeric_limits<GLsizei>::max());
+
+        return MakeGeometry(&vertices[0], (GLsizei)vertices.size(), &indices[0], (GLsizei)shapes[0].mesh.indices.size());
+    }
+
     void aie::FreeGeometry(Geometry& Geo)
     {
         glDeleteBuffers(1, &Geo.Vbo);
@@ -74,7 +141,7 @@ namespace aie
     {
         Texture returnValue = { 0, width, height, channels };
 
-        
+
         GLenum oglFormat = GL_RED;
         switch (channels)
         {

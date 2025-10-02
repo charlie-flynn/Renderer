@@ -24,6 +24,8 @@ namespace aie
 		const GLuint* const indices,
 		GLsizei IndexCount);
 
+	Geometry LoadGeometry(const char* filePath);
+
 	void FreeGeometry(Geometry& Geo);
 
 	struct Texture

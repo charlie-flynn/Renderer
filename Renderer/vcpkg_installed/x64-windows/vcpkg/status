@@ -70,3 +70,12 @@ Abi: 7e8abb9b1abfc39dd4232bfcefe5adcc58df919d192574f8e504c0d6e0e235c2
 Description: OpenGL Mathematics (GLM)
 Status: install ok installed
 
+Package: tinyobjloader
+Version: 2.0.0rc13
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ce1d7fe127d69d39e0824355c3fa33da54ea9866127a3e4f74b8088042071582
+Description: Tiny but powerful single file wavefront obj loader
+Status: install ok installed
+
