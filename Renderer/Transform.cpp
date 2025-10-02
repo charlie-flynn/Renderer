@@ -2,6 +2,9 @@
 
 Transform::Transform()
 {
+    LocalPosition = { 0, 0, 0 };
+    LocalRotation = { 0, 0, 0, 0 };
+    LocalScale = { 0, 0, 0 };
 }
 
 glm::mat4 Transform::LocalMatrix() const

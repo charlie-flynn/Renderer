@@ -38,9 +38,9 @@ int main()
 
 	Shader basicShad = aie::ReadShaderFromFiles("res/Shaders/CameraVertexShader.txt", "res/Shaders/TextureShader.frag");
 
-	aie::Texture awesome = aie::LoadTexture("res/Textures/baby anteater.jpg");
+	aie::Texture awesome = aie::LoadTexture("res/Textures/soulspear_specular.tga");
 	
-	glm::vec3 ambientLight = glm::vec3(0.6f, 0.6f, 0.6f);
+	glm::vec3 ambientLight = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	glm::vec3 sunlightDirection(0, 0, 1);
 
@@ -60,7 +60,7 @@ int main()
 
 		aie::Draw(basicShad, soulSpearGeometry);
 	}
-
+	
 	aie::FreeShader(basicShad);
 	aie::FreeGeometry(soulSpearGeometry);
 
