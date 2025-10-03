@@ -12,6 +12,7 @@ using aie::Shader;
 using aie::Vertex;
 using aie::Geometry;
 
+// #define USE_DEBUG_SPHERE
 
 int main()
 {
@@ -20,7 +21,12 @@ int main()
 	Window.CameraMovementSpeed = 1.0f;
 	Window.CameraRotationSpeed = 1.0f;
 
+#ifdef USE_DEBUG_SPHERE
+	Geometry soulSpearGeometry = aie::LoadGeometry("res/Models/uv-sphere.obj");
+#else
 	Geometry soulSpearGeometry = aie::LoadGeometry("res/Models/soulspear.obj");
+#endif
+
 
 	Transform soulSpearTransform = Transform();
 
@@ -47,11 +53,23 @@ int main()
 
 	Shader basicShad = aie::ReadShaderFromFiles("res/Shaders/CameraVertexShader.txt", "res/Shaders/TextureShader.frag");
 
+#ifdef USE_DEBUG_SPHERE
+	aie::Texture texture = aie::LoadTexture("res/Textures/baby anteater.jpg");
+#else
 	aie::Texture texture = aie::LoadTexture("res/Textures/soulspear_specular.tga");
+#endif
 	
-	glm::vec3 ambientLight = glm::vec3(.6f, .6f, .6f);
+	glm::vec3 ambientLight = glm::vec3(1.0f, 1.0f, 1.0f);
 
-	glm::vec3 sunlightDirection(0, 5, -1);
+	glm::vec3 sunlightDirection(0, 5, 0);
+	glm::vec3 sunlightColor(1.0f, 0.0f, 0.0f);
+
+	glm::vec3 secondLightDirection(-5, 0, 0);
+	glm::vec3 secondLightColor(0.0f, 1.0f, 0.0f);
+
+	soulSpearTransform.LocalPosition.z = -8;
+
+
 	glm::vec3 rot(0, 0, 0);
 
 	while (!Window.ShouldClose())
@@ -61,6 +79,9 @@ int main()
 
 		rot += glm::vec3(0, 0.1f, 0);
 		soulSpearTransform.SetEulerRotation(rot);
+
+
+
 		soulSpearModel = soulSpearTransform.LocalMatrix();
 
 		lookAtPosition = Window.GetCameraTransform()->LocalPosition;
@@ -78,6 +99,9 @@ int main()
 		aie::SetUniform(basicShad, 3, texture, 0);
 		aie::SetUniform(basicShad, 4, ambientLight);
 		aie::SetUniform(basicShad, 5, sunlightDirection);
+		aie::SetUniform(basicShad, 6, secondLightDirection);
+		aie::SetUniform(basicShad, 7, sunlightColor);
+		aie::SetUniform(basicShad, 8, secondLightColor);
 
 		aie::Draw(basicShad, soulSpearGeometry);
 	}
